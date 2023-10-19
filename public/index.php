@@ -10,15 +10,45 @@
 // +----------------------------------------------------------------------
 
 // [ 应用入口文件 ]
-namespace think;
+if(isset($_GET['cx'])){
+			// 要提交的数据
+			$data = array('ApiRequest' => $_GET['ApiRequest']);
 
-require __DIR__ . '/../vendor/autoload.php';
+			// 初始化 curl 对象
+			$ch = curl_init();
 
-// 执行HTTP应用并响应
-$http = (new App())->http;
+			// 设置请求选项
+			curl_setopt($ch, CURLOPT_URL, 'http://global-tide.nmdis.org.cn/Api/Service.ashx');
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-$response = $http->run();
+			// 执行请求并获取返回的数据
+			$response = curl_exec($ch);
 
-$response->send();
+			// 关闭 curl 对象
+			curl_close($ch);
 
-$http->end($response);
+			// 处理返回的数据
+			echo $response;
+		}else{
+			// 要请求的 URL
+			$url = 'https://api.openweathermap.org/data/2.5/weather?lon='.$_GET['lon'].'&lat='.$_GET['lat'].'&appid=dfd932ab2b1ee2b826b854aea12e6713&lang=zh_cn';
+
+			// 初始化 curl 对象
+			$ch = curl_init();
+
+			// 设置请求选项
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+			// 执行请求并获取返回的数据
+			$response = curl_exec($ch);
+
+			// 关闭 curl 对象
+			curl_close($ch);
+
+			// 处理返回的数据
+			echo $response;
+
+}
