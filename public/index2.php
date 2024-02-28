@@ -84,7 +84,7 @@ if (isset($_GET['cx'])) {
             echo '{"State":"true","Response":' . $response . ',"Response2":' . $response2 . '}';
             exit;
         }
-        echo   '{"State":"false","Response":' . $response . ',"Response2":' . $response2 . '}';
+        echo   '{"State":"true","Response":' . $response . ',"Response2":' . $response2 . '}';
         exit;
     }
 } else {
