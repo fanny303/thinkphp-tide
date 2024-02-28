@@ -52,7 +52,7 @@ if (isset($_GET['cx'])) {
         $response = curl_exec($curl);
 
         curl_close($curl);
-        if (strstr($response, '获取成功')) {
+        if (strstr($response, '获取成功') && isset($_GET['ApiRequest'])) {
 
             // 要提交的数据
             $data = array('ApiRequest' => $_GET['ApiRequest']);
